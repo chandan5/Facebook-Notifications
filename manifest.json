@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+
+  "name": "Facebook Notifications",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "0.1",
+  "icons": { "16" : "images/icon.png",
+ 			"48" : "images/48.png",
+			"128" : "images/128.png"},
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Facebook Notifications"
+  },
+  "background": {
+    "page" : "background.html"
+   },
+   "content_scripts": [
+    {
+      "matches": ["http://www.facebook.com/notifications"],
+      "js": ["content.js"]
+    }],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "cookies",
+     "http://*/*", "https://*/*" ,
+    "http://www.facebook.com/*"
+  ]
+}
