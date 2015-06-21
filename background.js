@@ -7,7 +7,7 @@ setInterval(function(){
 				isLoggined = 1;
 				//console.log(typeof(localStorage['c_user']));
 				//console.log(typeof(cookies[i].value));
-				var a = localStorage['c_user'];//.toString();
+				var a = localStorage['c_user'];
 				var b = cookies[i].value.toString();
 				console.log(localStorage['fbRssUrl']);
 				if((a == b) && (localStorage['fbRssUrl'] != "undefined"))
@@ -21,13 +21,12 @@ setInterval(function(){
 					$.ajax({
 						url : 'http://www.facebook.com/notifications',
 						success : function(data, textStatus, xmLHttpRequest){ //data contains notifications page
-							$html = $(data);
-							$div_element = $html[34];
-							$link_element = $div_element.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[2].childNodes[0];
-							localStorage['fbRssUrl'] = 'http://www.facebook.com/feeds/' + $link_element.href.split('/')[4];
 							localStorage['c_user'] = cookies[i].value;
-							var y = data.indexOf('rss');
-							localStorage['fbRssUrl'] = 'http://www.facebook.com' + data.substring(y-107, y+5).replace(/&amp;/g, '&');
+							var y = data.indexOf('rss20');
+							var z = data.lastIndexOf('href="/feeds/notifications.php',y);
+							if(y != -1 && z != -1)
+							console.log(data.substring(z+6,y+5));
+							localStorage['fbRssUrl'] = 'http://www.facebook.com' + data.substring(z+6,y+5).replace(/&amp;/g, '&');
 						},
 						error : function(xhr, ajaxOptions, thrownError) {
 							console.log(thrownError);
