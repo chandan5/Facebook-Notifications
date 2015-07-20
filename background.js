@@ -42,17 +42,11 @@ setInterval(function(){
 			console.log("You are not logged in facebook.")
 		//	console.log(localStorage['fbRssUrl']);
 		}
-
 		//fetching new notifs
-		if(localStorage['seenNotifs'] == undefined)
-			localStorage['seenNotifs'] = [];
-		if(localStorage['notifs'] == undefined)
-			localStorage['notifs'] = [];
 		if(localStorage['fbRssUrl'] != undefined)
 		{
 	  		$.get(localStorage['fbRssUrl'], function(data) {
-	  			localStorage['tempNotifs'] = [];
-	  			var tempNotifs = [];
+	  			var notifs = [];
 	    		var $xml = $(data);
 	    		var count = 0;
 	    		$xml.find("item").each(function() {
@@ -66,21 +60,44 @@ setInterval(function(){
 		                author: $this.find("author").text(),
 		                seen: 0
 	        		};
-	        		tempNotifs[count++] = item;
-	        	//	if(localStorage['seenNotifs'].indexOf(item.guid) != -1)
-	        	//		item.seen = 1;
-	        	//	localStorage['tempNotifs'] += item;
-			        //document.getElementById('notifications-div').innerHTML += postTemplate(item);
-			        //Do something with item here...
+	        		notifs[count++] = item;
 	    		});
-	    		localStorage['tempNotifs'] = JSON.stringify(tempNotifs);
-	    		//for (var i = localStorage['tempNotifs'].length - 1; i >= 0; i--) {
-	    		//	console.log(localStorage['tempNotifs'][i]);
-	    		//};
-	    		console.log(localStorage['notifs'].length);
-	    		localStorage['notifs'] = localStorage['tempNotifs'];
-	    		console.log(localStorage['tempNotifs'].length);
-			//    console.log(localStorage['notifs']);
+    			seenNotifsGuids = JSON.parse(localStorage['seenNotifsGuids']);
+    			//if(seenNotifsGuids == "" || seenNotifsGuids == undefined)
+    			//	seenNotifsGuids = [];
+				console.log("debug");
+				console.log(seenNotifsGuids);
+				console.log("/debug");
+				var isInNotifs = 0;
+	    		toBeDeletedSeenNotifsGuids = []; // cause no point in storing notifs->seen of notifs which are not being fetched now 
+	    		for (var j = seenNotifsGuids.length - 1; j >= 0; j--) {
+	    			isInNotifs = 0;
+	    			for (var k = notifs.length - 1; k >= 0; k--) {
+	    				if(notifs[k].guid == seenNotifsGuids[j])
+	    				{	
+	    					notifs[k].seen = 1
+	    					isInNotifs = 1;
+	    					break;
+	    				}
+	    			};
+	    			if(isInNotifs == 0)
+	    			{
+	    				//console.log(notifs[k].guid, seenNotifsGuids[j]);
+						toBeDeletedSeenNotifsGuids.push(seenNotifsGuids[j]);	    			
+	    			}
+	    		};
+	    		console.log("toBeDeletedSeenNotifsGuids:");
+	    		console.log(toBeDeletedSeenNotifsGuids);
+				console.log("deb1");
+	    		
+	    		for (var j = toBeDeletedSeenNotifsGuids.length - 1; j >= 0; j--) {
+	    			index = seenNotifsGuids.indexOf(toBeDeletedSeenNotifsGuids[j]);
+	    			if(index > -1)
+	    				seenNotifsGuids.splice(index,1);
+	    		};
+	    		
+				chrome.storage.local.set({"notifs": notifs});
+				localStorage['seenNotifsGuids'] = JSON.stringify(seenNotifsGuids);
 			});
 
   		}
