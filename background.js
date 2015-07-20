@@ -62,9 +62,10 @@ setInterval(function(){
 	        		};
 	        		notifs[count++] = item;
 	    		});
-    			seenNotifsGuids = JSON.parse(localStorage['seenNotifsGuids']);
-    			//if(seenNotifsGuids == "" || seenNotifsGuids == undefined)
-    			//	seenNotifsGuids = [];
+    			if(localStorage['seenNotifsGuids'] == "" || localStorage['seenNotifsGuids'] == undefined)
+    				seenNotifsGuids = [];
+    			else
+    				seenNotifsGuids = JSON.parse(localStorage['seenNotifsGuids']);
 				console.log("debug");
 				console.log(seenNotifsGuids);
 				console.log("/debug");

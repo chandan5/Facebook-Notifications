@@ -34,7 +34,10 @@ $(document).ready(function(){
       console.log("deb123");
       var guidOfClickedNotif = $(this).attr('id');
       //alert(guidOfClickedNotif);
-      seenNotifsGuids = JSON.parse(localStorage['seenNotifsGuids']);
+      if(localStorage['seenNotifsGuids'] == "" || localStorage['seenNotifsGuids'] == undefined)
+        seenNotifsGuids = [];
+      else
+        seenNotifsGuids = JSON.parse(localStorage['seenNotifsGuids']);
     //test = seenNotifsGuids;
       seenNotifsGuids.push(guidOfClickedNotif);
       localStorage['seenNotifsGuids'] = JSON.stringify(seenNotifsGuids);
