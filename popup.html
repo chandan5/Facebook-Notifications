@@ -22,29 +22,37 @@
       }
       #notifications-div
       {
-        /* avoid an excessively wide status text */
-/*        display: block;
-*/        max-height: 800px;
+        max-height: 800px;
         width: 400px;
+      }
+      .notif
+      {
+        width: 380px;
+        height: 80px;
+        border: 2px solid blue;
+        margin-bottom: 10px;
+      }
+      .fb-icon
+      {
+        height: 100%;  
       }
       .seen
       {
         display: none; 
       }
-      .item_link
+      /*.item_link
       {
-        padding: -2px 25px -2px 25px;        
-        width: 350px;
-      }
+        padding: -2px 25px -2px 25px;
+      }*/
       .post
       {
-/*        display: block;
-*/        
-        left: 0px;
-        right: 0px;
+        position: relative;
+        left: 20%;
+        top: 0px;
+        height: 100%;
+        width: 80%;
         border: 2px solid black;
-        width: 380px;
-        margin-bottom: 10px; 
+        /*margin-bottom: 10px; */
       }
       .title
       {
@@ -65,7 +73,7 @@
     <script src="popup.js"></script>
   </head>
   <body id="popup">
-    <div id="header"></div>
+    <div id="header">Unread Notifications</div>
     <div id="notifications-div">
     </div>
     <div id="footer"></div>

@@ -1,3 +1,4 @@
+/*
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 //	console.log("hi");
 //	alert("hi");
@@ -6,3 +7,4 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
  else
    sendResponse({}); // Send nothing..
 });
+*/

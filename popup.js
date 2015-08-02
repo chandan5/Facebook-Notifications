@@ -6,12 +6,15 @@ function postTemplate(item)
                   pubDate: $this.find("pubDate").text(),
                   author: $this.find("author").text()
             }*/
-  s = '<div class="post';
+  s = '<div class="notif';
   if(item.seen == 1)
-  	s += ' seen ';
-  s += '" id='+ item.guid +'><a class="item_link" target="_blank" href=' + item.link + '>';
+    s += ' seen ';
+  s += '">';
+  s += '<img class="fb-icon" src="images/fbicon.png"/>';
+  s += '<div class="post"';
+  s += ' id='+ item.guid +'><a class="item_link" target="_blank" href=' + item.link + '>';
   s += '<p class="title" >' + item.title + '</p>';
-  s += '</a></div>';
+  s += '</a></div></div>';
   return s;
 }
 
