@@ -1,5 +1,5 @@
 # Facebook-Notifications
-A Chrome Extension which notifies you about your notifications.
+A Chrome Extension which gives you facebook notification as Chrome Notifications.
 
 Special Features:
 
